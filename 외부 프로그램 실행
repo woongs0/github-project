@@ -1,0 +1,43 @@
+
+//C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe
+
+using System;
+using System.Diagnostics;
+
+public class Class1
+{
+	public Class1()
+	{
+	}
+
+    /// <summary>
+    /// Mht 파일을 저장하기 위한 함수
+    /// </summary>
+    /// <param name="strHTMLFileName"></param>
+    /// <param name="strMHTFileName"></param>
+    /// <returns></returns>
+    public bool SaveMHT(string strHTMLFileName, string strMHTFileName)
+    {
+        bool bReturn = false;
+        try
+        {
+            System.String ARGUMENT = "--disable-smart-shrinking " + strHTMLFileName.Trim() + " " + strMHTFileName.Trim();//.Replace(".mht", ".pdf");
+            ProcessStartInfo startInfo = new ProcessStartInfo(Settings.Default.PDF_Program_PATH);
+            startInfo.Arguments = ARGUMENT;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            Process oProc = Process.Start(startInfo);
+
+            oProc.WaitForExit(500);
+            bReturn = true;
+            oProc.Close();
+
+        }
+        catch (Exception e)
+        {
+            //MessageBox.Show(e.Message);                
+        }
+        return bReturn;
+    }
+}
