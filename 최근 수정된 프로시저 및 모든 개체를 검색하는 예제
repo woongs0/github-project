@@ -1,0 +1,19 @@
+--최근 수정된 프로시저 및 모든 개체를 검색하는 예제
+--https://kaiaphas.tistory.com/89
+
+SELECT 
+  name AS object_name   
+  ,SCHEMA_NAME(schema_id) AS schema_name  
+  ,type_desc  
+  ,create_date  
+  ,modify_date  
+  
+FROM sys.objects  
+
+WHERE modify_date > GETDATE() - <n_days>  
+-- n_days 부분에 최근 며칠이내의 수정내역을 보고 싶은지 검색하면 된다
+
+ORDER BY modify_date;  
+
+
+
